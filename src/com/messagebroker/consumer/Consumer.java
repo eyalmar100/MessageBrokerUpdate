@@ -75,76 +75,13 @@ public class Consumer implements IConsumerCallback {
 			}
 
 		}, 0, 1, TimeUnit.MILLISECONDS);
+		
+		 
 	}
 	
-	void read() {
-		
-	}
-
-	private void readWithRange() {
-
-		ExecutorService executor = Executors.newFixedThreadPool(5);
 	 
-		IntStream.range(0, 1).forEach(i -> {
 
-			Runnable task = () -> {
-
-				Collection<IQueue> s = queues.values();
-
-				System.out.println("   testing ");
-
-				for (IQueue queue : s) {
-
-					Message m = queue.read();
-					System.out.println("in the looping");
-					 System.out.printf("reading from Consumer: %s ,topis :%s,data :%s \n",
-					 this.name,
-					 queue.getTopicName(), m.getData());
-
-					processMessage(m);
-				}
-
-			};
-			executor.execute(task);
-		});
-		 
-		 
-	}
-
-	private void readFromQueueWithExecutorService() {
-
-		ExecutorService executor = Executors.newFixedThreadPool(5);
-
-		while (true) {
-			for (int i = 0; i < 50; ++i) {
-
-				Collection<IQueue> s = queues.values();
-
-				Runnable task = () -> {
-					System.out.println("   testing ");
-
-					for (IQueue queue : s) {
-
-						Message m = queue.read();
-						System.out.println("in the looping");
-					    System.out.printf("reading from Consumer: %s ,topis :%s,data :%s \n",
-						this.name,
-						 queue.getTopicName(), m.getData());
-
-						// processMessage(m);
-					}
-
-				};
-				executor.execute(task);
-			}
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
+	 
 
 	public Consumer(String name, List<String> topics) {
 		this.name = name;

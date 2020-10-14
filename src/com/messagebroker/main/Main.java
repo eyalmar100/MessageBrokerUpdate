@@ -24,8 +24,13 @@ public class Main {
 	}
 
 	public static void main(String[] args) throws JsonSyntaxException, JsonIOException, FileNotFoundException {
-
 		
+		int numOfMessages=50000;
+		
+		
+		if(args.length==1) {
+			numOfMessages=Integer.parseInt(args[0]);
+		}
 		
 		Gson gson = new Gson();
         
@@ -39,7 +44,7 @@ public class Main {
 		
 		Producer producer=new Producer(topics.topics,broker);
 		try {
-			producer.sendBulkMessage(50000);
+			producer.sendBulkMessage(numOfMessages);
 			
 			 
 		} catch (InterruptedException e) {
@@ -55,15 +60,11 @@ public class Main {
 	private static void createConsumersFromJson(Consumers consumers, IMessageBroker broker) {
 		for (Consumer consumer : consumers.getConsumers()) {
 
-			// = Consumer.builder().queues(null).name(consumer.getName()).broker(broker)
-			//		.topics(consumer.getTopics()).build();
-			
+			 
 			
 			consumer = new Consumer (consumer.getName(),consumer.getTopics(),broker);
 					 
-			
-			System.out.println("consumer is" + consumer);
-
+	 
 		}
 	}
 }
