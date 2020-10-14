@@ -1,0 +1,17 @@
+{
+	 
+	"consumers": [{
+		"name":"ComsumerA" ,
+			"topics": ["A"]
+		},
+		{
+		"name":"ConsumerB",
+			"topics": ["B", "C"]
+		},
+		{
+		"name":"ConsumerC",
+			"topics": ["A", "B", "C"]
+		}
+	]
+
+}
